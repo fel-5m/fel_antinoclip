@@ -6,34 +6,35 @@ local nextWarningCheck = 0
 local RNE = RegisterNetEvent
 local TSE = TriggerServerEvent
 
-local function Init()
+local function ResetWarnings()
+    warningCount = 0
+end
 
-    function ResetWarnings()
-        warningCount = 0
+local function AddWarning()
+    warningCount = warningCount + 1
+    print(warningCount)
+    lastWarningTime = GetGameTimer()
+
+    if warningCount >= maxWarnings then
+        ResetWarnings()
+        TSE('fel_antiNoclip:server:bruh')
     end
-    
-    function AddWarning()
-        warningCount = warningCount + 1
-        lastWarningTime = GetGameTimer()
-    
-        if warningCount >= maxWarnings then
-            ResetWarnings()
-            TSE('fel_antiNoclip:server:bruh')
-    end
-    
+end
+
+local function Init()
     Citizen.CreateThread(function()
         while true do
             local _ped = PlayerPedId()
             local currentTime = GetGameTimer()
             local aboveground = GetEntityHeightAboveGround(_ped)
-            
+
             if currentTime >= nextWarningCheck then
                 if currentTime - lastWarningTime > resetTime and warningCount > 0 then
                     ResetWarnings()
                 end
                 nextWarningCheck = currentTime + 1000 
             end
-    
+
             if tonumber(aboveground) > 10 then
                 if not IsPedInAnyVehicle(_ped, false) and 
                    not IsPedInParachuteFreeFall(_ped) and 
@@ -44,24 +45,23 @@ local function Init()
                    not IsPedSwimmingUnderWater(_ped) and 
                    not IsPedClimbing(_ped) and
                    not IsPlayerDead(_ped) then
-    
+
                     local parachuteState = GetPedParachuteState(_ped)
-    
+
                     if parachuteState == 0 or parachuteState == -1 then
-                        if IsPedWalking(_ped) then
+                        if IsPedWalking(_ped) or IsPedRunning(_ped) then 
                             AddWarning()
                         end
                     end
                 end
             end
-    
-            Wait(250) 
+
+            Wait(250)
         end
     end)
-    
 end
 
 RNE('fel_antiNoclip:client:receiveFromServer', function()
     Init()
+    print('init')
 end)
-
