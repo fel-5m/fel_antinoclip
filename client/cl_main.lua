@@ -12,7 +12,6 @@ end
 
 local function AddWarning()
     warningCount = warningCount + 1
-    print(warningCount)
     lastWarningTime = GetGameTimer()
 
     if warningCount >= maxWarnings then
@@ -63,5 +62,4 @@ end
 
 RNE('fel_antiNoclip:client:receiveFromServer', function()
     Init()
-    print('init')
 end)
