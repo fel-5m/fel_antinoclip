@@ -22,7 +22,7 @@ Installation:
 Example Webhook Notification:
 Here’s an example of what the Discord webhook notification looks like when a player is kicked:
 
-![Webhook Notification Example](https://media.discordapp.net/attachments/892921942301098064/1277151802042880061/Y5WLNvn.jpg?ex=66cc1fcd&is=66cace4d&hm=dfbe7e0c214176413823803c0c5a430147529fffa15bc122c44cb93d26bc3d26&=&format=webp)
+![Webhook Notification Example](https://media.discordapp.net/attachments/892921942301098064/1277151802042880061/Y5WLNvn.jpg?ex=66ce1a0d&is=66ccc88d&hm=b952787d2dd41985d787327250ed226d29cfd8a139aaea32a0207ad69bc2bdb1&=&format=webp)
 
 
 
